@@ -1,4 +1,11 @@
-"use strict";
+import { Invoice } from "./classes/invoice.js";
+import { Payments } from "./classes/payments.js";
+const invOne = new Invoice('gio', 'car purchase', 250);
+const invTwo = new Invoice('frank', 'boat purchase', 450);
+let invoices = [];
+invoices.push(invOne);
+invoices.push(invTwo);
+// inputs
 const form = document.querySelector('.new-item-form');
 const type = document.querySelector('#type');
 const toFrom = document.querySelector('#toFrom');
@@ -6,5 +13,12 @@ const details = document.querySelector('#details');
 const amount = document.querySelector('#amount');
 form.addEventListener('submit', (e) => {
     e.preventDefault();
-    console.log(type.value, toFrom.value, details.value, amount.valueAsNumber);
+    let doc;
+    if (type.value == 'invoice') {
+        doc = new Invoice(toFrom.value, details.value, amount.valueAsNumber);
+    }
+    else {
+        doc = new Payments(toFrom.value, details.value, amount.valueAsNumber);
+    }
+    console.log(doc);
 });
